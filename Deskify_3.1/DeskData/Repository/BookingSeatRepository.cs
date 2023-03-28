@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DeskData.Repository
 {
-    public class BookingSeatRepository
+    public class BookingSeatRepository:IBookingSeatRepository
     {
         DeskDbContext _db;
         public BookingSeatRepository(DeskDbContext db)

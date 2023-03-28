@@ -1,0 +1,44 @@
+﻿@model IEnumerable<DeskEntity.Model.BookingSeat>
+
+<h1>AllSeats</h1>
+
+<div>
+    <a asp-controller="BookingSeat" asp-action="AllSeats">Index</a>
+
+</div>
+
+
+<div class="row">
+    <div class="col-12 ">
+        <h3>Seats</h3>
+        <hr />
+        <table class="table table-light table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Seat Status</th>
+                    <th>ToDate</th>
+                    <th>FromDate</th>
+                    <th>ShiftTime</th>
+                    <th>EmployeeId</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var seat in Model)
+                {
+                    <tr>
+                        <td>@seat.BookingSeatId</td>
+                        <td>@seat.SeatStatus</td>
+                        <td>@seat.ToDate</td>
+                        <td>@seat.FromDate</td>
+                        <td>@seat.SeatShiftTime</td>
+                        <td>@seat.EmployeeID</td>
+                        <td><a asp-controller="BookingSeat" asp-action="EditBookingSeat" asp-route-BookSeatId=@seat.BookingSeatId>Edit</a></td>
+                        <td><a asp-controller="BookingSeat" asp-action="DeleteBookingSeat" asp-route-BookSeatId=@seat.BookingSeatId>Delete</a></td>
+                    </tr>
+                }
+        </table>
+    </div>
+
+</div>

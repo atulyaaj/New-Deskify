@@ -6,11 +6,12 @@ using System.Text;
 
 namespace DeskEntity.Model
 {
+    [Table("seats")]
     public class Seat
     {
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+       
         public int SeatId { get; set; }
 
         public string SeatNumber { get; set; }

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace DeskData.Repository
 {
-    public class FloorRepository
+    public class FloorRepository:IFloorRepository
     {
         DeskDbContext _db;
         public FloorRepository(DeskDbContext db)

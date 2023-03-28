@@ -6,10 +6,12 @@ using System.Text;
 
 namespace DeskEntity.Model
 {
+
+    [Table("reservedSeats")]
     public class ReservedSeat
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        
         public int ReservedSeatId { get; set; }
 
         [ForeignKey("Seat")]

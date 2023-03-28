@@ -6,11 +6,12 @@ using System.Text;
 
 namespace DeskEntity.Model
 {
+    [Table("floors")]
     public class Floor
     {
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        
         public int FloorId { get; set; }
 
         public string FloorName { get; set; }

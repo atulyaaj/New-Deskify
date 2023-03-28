@@ -1,0 +1,40 @@
+﻿@model DeskEntity.Model.Floor
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewData["Title"] = "DeleteFloors";
+}
+
+<div>
+    <hr />
+    <a asp-controller="Floor" asp-action="Index">Index</a>
+    <hr />
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    <h2>Delete Floor</h2>
+    <div class="form-group">
+        <label> Floor Id </label>
+        <input type="text" asp-for="FloorId" class="form-control" placeholder="enter Floor Id" required />
+    </div>
+
+    <input type="submit" value="Save" class="btn btn-outline-success" />
+    <input type="button" value="Reset" class="btn btn-outline-secondary" />
+    <hr />
+    @if (ViewBag.status == "Ok")
+    {
+        <div class="alert alert-success">
+            @ViewBag.message
+        </div>
+    }
+    else if (ViewBag.status == "Error")
+    {
+        <div class="alert alert-danger">
+            @ViewBag.message
+        </div>
+    }
+</form>
+

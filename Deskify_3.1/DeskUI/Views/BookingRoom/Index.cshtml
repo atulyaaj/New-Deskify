@@ -1,0 +1,60 @@
+﻿@model IEnumerable<DeskEntity.Model.BookingRoom>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<div>
+    <hr />
+    <a asp-controller="BookingRoom" asp-action="AddBookingRooms"> Add BookingRoom</a>
+    <hr />
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h3>BookingRoom</h3>
+        <hr />
+        <table class="table table-light table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>RoomId</th>
+                    <th>RoomStatus</th>
+                    <th>ToDate</th>
+                    <th>FromDate</th>
+                    <th>MeetingHours</th>
+                    <th>MeetingStart</th>
+                    <th>MeetingEnd</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var BookingRooms in Model)
+                {
+                    <tr>
+                        <td>@BookingRooms.BookingRoomId</td>
+                        <td>@BookingRooms.RoomStatus</td>
+                        <td>@BookingRooms.ToDate</td>
+                        <td>@BookingRooms.FromDate</td>
+                        <td>@BookingRooms.MeetingHours</td>
+                        <td>@BookingRooms.MeetingStart</td>
+                        <td>@BookingRooms.MeetingEnd</td>
+
+
+                        <td>
+                            <a asp-controller="BookingRoom" asp-action="EditRoom" asp-route-RoomId="@BookingRooms.BookingRoomId">Edit</a>
+                        </td>
+                        <td>
+                            <a asp-controller="BookingRoom" asp-action="DeleteBookingRooms" asp-route-RoomId="@BookingRooms.BookingRoomId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

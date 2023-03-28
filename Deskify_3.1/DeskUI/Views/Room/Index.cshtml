@@ -1,0 +1,47 @@
+﻿@model IEnumerable<DeskEntity.Model.Room>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div>
+    <hr />
+    <a asp-controller="Room" asp-action="AddRoom">Add Room</a>
+    <hr />
+</div>
+
+
+
+<div class="row">
+    <div class="col-12">
+        <h3>Room</h3>
+        <hr />
+        <table class="table table-light table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>RoomId</th>
+                    <th>Room Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var room in Model)
+                {
+                    <tr>
+                        <td>@room.RoomId</td>
+                        <td>@room.RoomNumber</td>
+                        <td>
+                            <a asp-controller="Room" asp-action="UpdateRoom" asp-route-roomId="@room.RoomId">Edit</a>
+                        </td>
+                        <td>
+                            <a asp-controller="Room" asp-action="DeleteRoom" asp-route-roomId="@room.RoomId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

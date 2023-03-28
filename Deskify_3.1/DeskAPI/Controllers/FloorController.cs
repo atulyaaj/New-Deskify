@@ -16,10 +16,11 @@ namespace DeskAPI.Controllers
             _floorService = floorService;
         }
 
+
         #region GET FLOOR
 
         [HttpGet("GetFloor")]
-        public IEnumerable<Floor> GetFloors()
+        public IEnumerable<Floor> GetFloor()
         {
             return _floorService.GetFloor();
         }

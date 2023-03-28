@@ -1,0 +1,51 @@
+﻿@model DeskEntity.Model.Room
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewData["Title"] = "UpdateRoom";
+}
+
+
+<div>
+    <hr />
+    <a asp-controller="Room" asp-action="Index">Update Room</a>
+    <hr />
+</div>
+
+
+
+<form method="post" enctype="multipart/form-data">
+    <h2>Update Room</h2>
+    <div class="form-group">
+        <label> RoomId </label>
+        <input type="text" asp-for="RoomId" class="form-control" placeholder="enter FloorName" required />
+    </div>
+    <div class="form-group">
+        <label> Room Number </label>
+        <input type="text" asp-for="RoomNumber" class="form-control" placeholder="enter FloorName" required />
+    </div>
+    <div class="form-group">
+        <label> floor id </label>
+        <input type="text" asp-for="FloorId" class="form-control" placeholder="enter floorId" required />
+    </div>
+
+    <input type="submit" value="Save" class="btn btn-outline-success" />
+    <input type="button" value="Reset" class="btn btn-outline-secondary" />
+    <hr />
+    @if (ViewBag.status == "Ok")
+    {
+        <div class="alert alert-success">
+            @ViewBag.message
+        </div>
+    }
+    else if (ViewBag.status == "Error")
+    {
+        <div class="alert alert-danger">
+            @ViewBag.message
+        </div>
+    }
+</form>
+

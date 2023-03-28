@@ -1,0 +1,65 @@
+﻿@model DeskEntity.Model.BookingRoom
+@{
+    ViewData["Title"] = "AddBookingRooms";
+}
+
+<h1>AddBookingRoom</h1>
+
+<div>
+    <hr />
+    <a asp-controller="BookingRoom" asp-action="Index">Add BookingRoom</a>
+    <hr />
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    <h2>Add BookingRoom</h2>
+    @*<div class="form-group">
+        <label> BookingRoomId </label>
+        <input type="text" asp-for="BookingRoomId" class="form-control" placeholder="enter MovieId" required />
+    </div>*@
+    <div class="form-group">
+        <label> RoomStatus </label>
+        <input type="text" asp-for="RoomStatus" class="form-control" placeholder="enter RoomStatus" required />
+    </div>
+    <div class="form-group">
+        <label> ToDate </label>
+        <input type="datetime" asp-for="ToDate" class="form-control" placeholder="enter Todate" required />
+    </div>
+    <div class="form-group">
+        <label> FromDate </label>
+        <input type="datetime" asp-for="FromDate" class="form-control" placeholder="enter FromDate" required />
+    </div>
+
+    <div class="form-group">
+        <label> Meeting Hours </label>
+        <input type="text" asp-for="MeetingHours" class="form-control" placeholder="enter Meeting Hours" required />
+    </div>
+    <div class="form-group">
+        <label> Meeting Start </label>
+        <input type="datetime" asp-for=" MeetingStart" class="form-control" placeholder="enter Meeting Start" required />
+    </div>
+    <div class="form-group">
+        <label> Meeting End </label>
+        <input type="datetime" asp-for="MeetingEnd" class="form-control" placeholder="enter Meeting End" required />
+    </div>
+
+
+    <input type="submit" value="Save" class="btn btn-outline-success" />
+    <input type="button" value="Reset" class="btn btn-outline-secondary" />
+    <hr />
+    @if (ViewBag.status == "Ok")
+    {
+        <div class="alert alert-success">
+            @ViewBag.message
+        </div>
+    }
+    else if (ViewBag.status == "Error")
+    {
+        <div class="alert alert-danger">
+            @ViewBag.message
+        </div>
+    }
+</form>
+
+
+

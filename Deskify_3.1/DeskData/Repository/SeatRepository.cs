@@ -8,13 +8,14 @@ using System.Text;
 
 namespace DeskData.Repository
 {
-    public class SeatRepository
+    public class SeatRepository:ISeatRepository
     {
         DeskDbContext _db;
         public SeatRepository(DeskDbContext db)
         {
             _db = db;
         }
+
         #region AddSeat
         public void AddSeat(Seat seat)
         {
@@ -41,7 +42,6 @@ namespace DeskData.Repository
 
         }
         #endregion UpdateSeat
-
 
         #region GetSeatsById 
         public Seat GetSeatsById(int seatId)
