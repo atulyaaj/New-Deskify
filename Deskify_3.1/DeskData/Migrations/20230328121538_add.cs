@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DeskData.Migrations
 {
-    public partial class deskreserved : Migration
+    public partial class add : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -82,10 +82,8 @@ namespace DeskData.Migrations
                     EmployeeID = table.Column<int>(type: "int", nullable: false),
                     EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EmployeeNumber = table.Column<int>(type: "int", nullable: false),
-                    EmployeeEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true),
                     Gender = table.Column<string>(type: "char(1)", nullable: false),
                     SecurityQuestion = table.Column<string>(type: "nvarchar(max)", nullable: true)

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DeskData.Migrations
 {
     [DbContext(typeof(DeskDbContext))]
-    [Migration("20230328085543_deskify")]
-    partial class deskify
+    [Migration("20230328121538_add")]
+    partial class add
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
