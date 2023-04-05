@@ -1,5 +1,4 @@
-﻿
-using DeskEntity.Model;
+﻿using DeskEntity.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
@@ -492,19 +491,7 @@ namespace DeskUI.Controllers
             }
             return View();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-        #endregion BookingRegion
+             #endregion BookingRegion
 
     }
 }
