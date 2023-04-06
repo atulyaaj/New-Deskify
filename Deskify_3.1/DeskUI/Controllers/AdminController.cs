@@ -9,18 +9,22 @@ using System.Threading.Tasks;
 using System;
 using DeskData.Data;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace DeskUI.Controllers
 {
     public class AdminController : Controller
     {
-        #region AddSeat
+
+        #region Seat Crud
         private IConfiguration _configuration;
 
         public AdminController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
+
+        DeskDbContext db = new DeskDbContext();
         public IActionResult Index()
         {
             return View();
@@ -54,7 +58,6 @@ namespace DeskUI.Controllers
         public async Task<IActionResult> AddSeats(Seat seat)
 
         {
-
             using (HttpClient client = new HttpClient())
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(seat), Encoding.UTF8, "application/json");
@@ -121,7 +124,7 @@ namespace DeskUI.Controllers
         }
 
 
-
+        [HttpGet]
         public async Task<IActionResult> EditSeats(int SeatId)
         {
             Seat seat = null;
@@ -139,6 +142,7 @@ namespace DeskUI.Controllers
 
                 }
             }
+            TempData["floor"] = seat.FloorId;
             return View(seat);
         }
 
@@ -147,6 +151,8 @@ namespace DeskUI.Controllers
         public async Task<IActionResult> EditSeats(Seat seat)
 
         {
+            seat.FloorId = Convert.ToInt32(TempData["floor"]);
+
             using (HttpClient client = new HttpClient())
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(seat), Encoding.UTF8, "application/json");
@@ -168,9 +174,9 @@ namespace DeskUI.Controllers
             return View();
         }
 
-        #endregion AddSeat
+        #endregion
 
-        #region AddFloor
+        #region Floor Crud
 
         [HttpGet]
         public async Task<IActionResult> AllFloors()
@@ -192,13 +198,10 @@ namespace DeskUI.Controllers
         }
 
 
-
         public IActionResult AddFloors()
         {
             return View();
         }
-
-
 
         [HttpPost]
         public async Task<IActionResult> AddFloors(Floor floor)
@@ -284,6 +287,7 @@ namespace DeskUI.Controllers
                     {
                         ViewBag.status = "Ok";
                         ViewBag.message = "Floor details deleted sucessfully!!";
+                        return RedirectToAction("AllFloors", "Admin");
                     }
                     else
                     {
@@ -294,9 +298,9 @@ namespace DeskUI.Controllers
             }
             return View();
         }
-        #endregion AddFloor
+        #endregion
 
-        #region Room View-Edit-Delete Actions
+        #region Room Crud
         [HttpGet]
         public async Task<IActionResult> GetAllRooms()
         {
@@ -350,6 +354,7 @@ namespace DeskUI.Controllers
             return View();
         }
 
+        [HttpGet]
         public async Task<IActionResult> UpdateRoom(int roomId)
         {
             if (roomId != 0)
@@ -362,7 +367,7 @@ namespace DeskUI.Controllers
             //it will fetch the room Details by using DoctorID
             using (HttpClient client = new HttpClient())
             {
-                string endPoint = _configuration["WebApiBaseUrl"] + "Room/GetRoomsById?roomId=" + Convert.ToInt32(TempData["EditroomId"]);
+                string endPoint = _configuration["WebApiBaseUrl"] + "Room/GetRoomsById?roomId=" + Convert.ToInt32(TempData["UpdateroomId"]);
                 TempData.Keep();
                 using (var response = await client.GetAsync(endPoint))
                 {
@@ -374,12 +379,14 @@ namespace DeskUI.Controllers
                     }
                 }
             }
+            TempData["floor"] = room.FloorId;
             return View(room);
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateRoom(Room room)
         {
+            room.FloorId = Convert.ToInt32(TempData["floor"]);
             ViewBag.status = "";
             //it will update the room details after Admin Changes
             using (HttpClient client = new HttpClient())
@@ -392,7 +399,6 @@ namespace DeskUI.Controllers
                     {
                         ViewBag.status = "Ok";
                         ViewBag.message = "Room Details Updated Successfully!";
-                        //return RedirectToAction("GetAllRooms", "Room");
                     }
                     else
                     {
@@ -417,7 +423,6 @@ namespace DeskUI.Controllers
                     {
                         ViewBag.status = "Ok";
                         ViewBag.message = "Room Details Deleted Successfully!";
-                        return RedirectToAction("Index", "Room");
                     }
                     else
                     {
@@ -432,6 +437,7 @@ namespace DeskUI.Controllers
 
         #endregion
 
+        #region Employee Crud
         public IActionResult AddEmployee()
         {
             return View();
@@ -652,15 +658,79 @@ namespace DeskUI.Controllers
             return View(employeeresult);
             #endregion
         }
-     
 
+        #endregion
+
+        #region View Records
+        public IActionResult ViewRecords()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllBookingSeats()
+        {
+            IEnumerable<BookingSeat> bookingseatresult = null;
+            using (HttpClient client = new HttpClient())
+            {
+
+                string endPoint = _configuration["WebApiBaseUrl"] + "BookingSeat/GetAllBookingSeats";
+                using (var response = await client.GetAsync(endPoint))
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        var result = await response.Content.ReadAsStringAsync();
+                        bookingseatresult = JsonConvert.DeserializeObject<IEnumerable<BookingSeat>>(result);
+                    }
+                }
+            }
+            return View(bookingseatresult);
+        }
+        #endregion
+
+        #region Search
+
+        public IActionResult Search()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult Search(int Employeenumber)
+        {
+            var employee = db.employees.SingleOrDefault(e => e.EmployeeNumber == Employeenumber);
+            if (employee == null)
+            {
+                ModelState.AddModelError(string.Empty, "Employee not found.");
+                return View("\\Views\\Shared\\NotFound.cshtml", ModelState);
+            }
+            var bookings = db.bookingSeats.Include(b => b.Employee).Where(b => b.Employee.EmployeeNumber == Employeenumber).ToList();
+
+
+
+            if (bookings.Any())
+            {
+                var employeeNames = bookings.Select(b => b.Employee.EmployeeName).Distinct().ToList();
+                var EmployeeNumber = bookings.Select(b => b.Employee.EmployeeNumber).Distinct().ToList();
+
+
+
+                ViewBag.EmployeeNames = employeeNames;
+                return View("Details", bookings);
+            }
+
+
+
+            return View("NotFound");
+
+
+        }
+
+        #endregion
 
     }
 }
-
-
-        
-
     
 
 
