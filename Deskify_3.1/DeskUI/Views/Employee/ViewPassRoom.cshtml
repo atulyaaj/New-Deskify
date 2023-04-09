@@ -7,6 +7,7 @@
 
 <br />
 <a asp-area="" asp-controller="Employee" asp-action="Index"><img class="img-fluid" style="height:35px" src="https://www.svgrepo.com/show/358729/navigate-back-circle.svg"></a>
+@if(Model.RoomStatus==1){
 <html>
     <body style="background:-webkit-linear-gradient(left, #fff, #000)">
         <section class="vh-70 gradient-custom">
@@ -58,4 +59,34 @@
         </section>
     </body>
     </html>
-
+}
+else
+{
+    <html>
+    <head>
+        <style>
+            .card {
+                height: 300px;
+                width: 600px;
+                background-color: black;
+                box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+                border-radius: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="row">
+            <div class="card col-8 p-1 mb-3 mx-auto text-center text-white" style="width: max-content;margin-top:100px">
+                <div class="card-body">
+                    <img src="~/img/empty-chair.webp" width="140" />
+                    <h3>No bookings for the day</h3>
+                    <p>If you want to book a meeting room, use the Book a Room button below.</p>
+                    <div class="text-center">
+                        <a asp-controller="Employee" asp-action="BookingRooms" class="btn btn-success btn-lg">Book a Room</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
+}
