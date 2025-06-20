@@ -110,7 +110,7 @@ You'll now see the Deskify homepage in your browser.
 <img src="https://github.com/user-attachments/assets/26079650-fa49-4478-9f8e-dcca57c9e869" width="500" alt="User Dashboard"><br>
 📋 *User Dashboard*
 
-<img src="https://github.com/user-attachments/assets//b88fd9ac-7247-4ee1-a72d-4636efbd136b" width="500" alt="Room Map"><br>
+<img src="https://github.com/user-attachments/assets/b88fd9ac-7247-4ee1-a72d-4636efbd136b" width="500" alt="Room Map"><br>
 🗺️ *Live Meeting Room Map View*
 
 <img src="https://github.com/user-attachments/assets/ef5ac48c-6957-4b0e-959c-a0ba0dca9cdb" width="500" alt="Notification Page"><br>
